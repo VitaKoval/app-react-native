@@ -1,4 +1,5 @@
 import { StyleSheet, View, FlatList, Button } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import GoalItem from "./components/GoalItem";
 import GoalInput from "./components/GoalInput";
@@ -30,36 +31,39 @@ export default function App() {
   }
 
   return (
-    <View style={styles.appContainer}>
-      <View style={styles.buttonContainer}>
-        <Button
-          title="Add New Goal"
-          color="#DDA0DD"
-          onPress={startAddGoalHandle}
-        />
-      </View>
+    <>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Add New Goal"
+            color="white"
+            onPress={startAddGoalHandle}
+          />
+        </View>
 
-      <GoalInput
-        onAddGoal={addGoalHandle}
-        visible={modalIsVisible}
-        onCancel={endAddGoalHandle}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={courseGoal}
-          renderItem={(itemData) => {
-            return (
-              <GoalItem
-                text={itemData.item.text}
-                id={itemData.item.id}
-                onDeleteItem={deleteGoalHandler}
-              />
-            );
-          }}
-          keyExtractor={(item, index) => item.id}
+        <GoalInput
+          onAddGoal={addGoalHandle}
+          visible={modalIsVisible}
+          onCancel={endAddGoalHandle}
         />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={courseGoal}
+            renderItem={(itemData) => {
+              return (
+                <GoalItem
+                  text={itemData.item.text}
+                  id={itemData.item.id}
+                  onDeleteItem={deleteGoalHandler}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => item.id}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -79,5 +83,5 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 85,
     marginBottom: 25,
-  }
+  },
 });
