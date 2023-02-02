@@ -1,4 +1,4 @@
-import { StyleSheet, View, TextInput, Button } from "react-native";
+import { StyleSheet, View, TextInput, Button, Modal, Image } from "react-native";
 import { useState } from "react";
 
 function GoalInput(props) {
@@ -14,15 +14,26 @@ function GoalInput(props) {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.textInput}
-        placeholder="Your cours goal"
-        onChangeText={goalInputHandler}
-        value={enteredGoalText}
-      />
-      <Button title="Add goal" onPress={addGoalHandle} />
-    </View>
+    <Modal visible={props.visible} transparent={false} animationType='slide'>
+      <View style={styles.inputContainer}>
+        <Image style={styles.image} source={require('../assets/image/goal.png')}/>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Your cours goal"
+          onChangeText={goalInputHandler}
+          value={enteredGoalText}
+        />
+        <View style={styles.buttonContainer}>
+          <View  style={styles.button}>
+            <Button title="Add goal" onPress={addGoalHandle} />
+          </View>
+          <View style={styles.button}>
+            <Button title="Cancel" onPress={props.onCancel}/>
+          </View>
+        </View>
+        
+      </View>
+    </Modal>
   );
 }
 
@@ -31,12 +42,9 @@ export default GoalInput;
 const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'column',
     alignItems: "center",
-    justifyContent: "space-between",
-    borderBottomColor: "#cccccc",
-    borderBottomWidth: 1,
-    marginBottom: 18,
+    justifyContent: "center",
   },
   textInput: {
     width: "70%",
@@ -44,5 +52,18 @@ const styles = StyleSheet.create({
     borderColor: "#cccccc",
     borderWidth: 1,
     borderRadius: 8,
+    marginBottom: 16,
   },
+  buttonContainer: {
+    flexDirection: 'row'
+  },
+  button: {
+    width: '25%',
+    marginHorizontal: 16,
+  },
+  image: {
+    width: 100,
+    height: 120,
+    margin: 18,
+  }
 });
