@@ -31,12 +31,19 @@ export default function App() {
 
   return (
     <View style={styles.appContainer}>
-      <Button
-        title="Add New Goal"
-        color="#5e0acc"
-        onPress={startAddGoalHandle}
+      <View style={styles.buttonContainer}>
+        <Button
+          title="Add New Goal"
+          color="#DDA0DD"
+          onPress={startAddGoalHandle}
+        />
+      </View>
+
+      <GoalInput
+        onAddGoal={addGoalHandle}
+        visible={modalIsVisible}
+        onCancel={endAddGoalHandle}
       />
-      <GoalInput onAddGoal={addGoalHandle} visible={modalIsVisible} onCancel={endAddGoalHandle}/>
       <View style={styles.goalsContainer}>
         <FlatList
           data={courseGoal}
@@ -59,10 +66,18 @@ export default function App() {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    paddingTop: 55,
+    // paddingTop: 55,
     paddingHorizontal: 16,
   },
   goalsContainer: {
     flex: 5,
+    padding: 22,
+    backgroundColor: "#4B0082",
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
   },
+  buttonContainer: {
+    marginTop: 85,
+    marginBottom: 25,
+  }
 });
